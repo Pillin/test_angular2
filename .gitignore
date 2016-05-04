@@ -14,3 +14,5 @@ _temp
 !protractor*.js
 !wallaby.js
 !systemjs.config.js
+npm-debug.log
+*.ts.not.yet
