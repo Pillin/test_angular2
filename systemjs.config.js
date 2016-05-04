@@ -17,7 +17,18 @@
   var packages = {
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
+    '@reactivex/rxjs': { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { defaultExtension: 'js' },
+    '@angular2-material/core': {
+      format: 'cjs',
+      defaultExtension: 'js',
+      main: 'core.js'
+    },
+    '@angular2-material/card': {
+      format: 'cjs',
+      defaultExtension: 'js',
+      main: 'card.js'
+    },
   };
 
   var packageNames = [
