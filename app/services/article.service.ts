@@ -1,34 +1,26 @@
 import { Injectable } from '@angular/core';
-import { ARTICLES } from '../mocks/mock-article';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, RequestOptions, RequestMethod, Request } from '@angular/http';
 import { Article } from '../models/article';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { JSONP_PROVIDERS, Jsonp} from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 
 
 @Injectable()
 export class ArticleService {
 
-	private articlesUrl = 'http://127.0.0.1:8000/articles/';
-	private headers = new Headers();
+	private  articlesUrl = 'http://localhost:8000/articles/';
 
-	constructor(private http: Http, private jsonp: Jsonp) {
-		console.log('ArticleService created.', http);
-	//	this.headers.append('Access-Control-Allow-Headers', 'Content-Type');
-	//	this.headers.append('Content-Type', 'application/json');
-		this.headers.append('Access-Control-Allow-Origin', '*');
+	constructor(private http: Http) {
 	}
 
 	private extractData(res: Response) {
-		
 		if (res.status < 200 || res.status >= 300) {
 			throw new Error('Bad response status: ' + res.status);
 		}
 		let body = res.json();
 		;
-		return body.data || {};
+		return body.results || {};
 	}
 	private handleError(error: any) {
 		
@@ -40,9 +32,12 @@ export class ArticleService {
 
 
 	getAllArticles(): Observable<any> {
-		
-		//return this.http.get(this.articlesUrl, { headers: this.headers }).map(this.extractData).catch(this.handleError);
-		return Promise.resolve(ARTICLES);
+		var options = new RequestOptions({
+			method: RequestMethod.Get,
+			url: this.articlesUrl,
+		});
+		var req = new Request(options);
+		return this.http.request(req).map(this.extractData).catch(this.handleError);
 	}
 
 }

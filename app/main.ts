@@ -1,5 +1,7 @@
-import {bootstrap}    from '@angular/platform-browser-dynamic';
-import { HTTP_PROVIDERS, JSONP_PROVIDERS } from '@angular/http';
+import {bootstrap} from '@angular/platform-browser-dynamic';
+import {provide} from '@angular/core';
+import { HTTP_PROVIDERS, RequestOptions } from '@angular/http';
+import { MyBaseRequestOptions } from './providers/app.provider';
 import {BookComponent} from './components/book.component';
 
-bootstrap(BookComponent, [HTTP_PROVIDERS, JSONP_PROVIDERS]);
+bootstrap(BookComponent, [HTTP_PROVIDERS,  provide(RequestOptions, { useClass: MyBaseRequestOptions })]);
